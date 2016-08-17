@@ -1,0 +1,24 @@
+{
+  "name": "rust_syntax_highlight",
+  "authors": [
+    "bjorn3"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "rust",
+    "rust-lang",
+    "syntax",
+    "highlight"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,174 @@
+body{
+    background-color: black;
+    color: lightgray;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+h2{
+    margin-bottom: 4px;
+}
+h2 + pre{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#output{
+    color: deepskyblue;
+}
+
+#highlighted{
+    filter: brightness(120%) contrast(2000%);
+}
+
+#wrapper{
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#editor {
+    mix-blend-mode: difference;
+    position: absolute;
+    top: 0px;
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    z-index: 1000;
+}
+
+#wrapper {
+    font-size: 30px;
+    position: absolute;
+}
+
+/*Brackets Neon*/
+
+.CodeMirror-linenumber {
+    padding: 0 1.5em 0 0.5em;
+    color: rgba(255, 255, 255, 0.333333);
+}
+
+.CodeMirror-scroll,
+.CodeMirror-gutters {
+    background-color: #1d1f21;
+}
+
+.CodeMirror-scroll {
+    color: rgba(255, 255, 255, 0.666667);
+}
+
+.CodeMirror-matchingtag {
+    background-color: rgba(255, 255, 255, 0.0833333);
+}
+
+.CodeMirror-matchingbracket {
+    color: rgba(255, 255, 255, 0.666667) !important;
+    background-color: rgba(255, 255, 255, 0.0833333);
+}
+
+.CodeMirror-selected,
+.CodeMirror-activeline .CodeMirror-gutter-elt,
+.CodeMirror-activeline-background {
+    color: rgba(255, 255, 255, 0.666667);
+    background-color: rgba(255, 255, 255, 0.0833333);
+}
+
+.CodeMirror-cursor {
+    border-left: solid 0.125em rgba(255, 255, 255, 0.666667) !important;
+}
+
+.cm-operator {
+    color: rgba(255, 255, 255, 0.666667);
+}
+
+.comment {
+    color: rgba(255, 255, 255, 0.333333);
+}
+
+.cm-atom,
+.keyword,
+.string {
+    color: #ff50a7;
+}
+
+.cm-attribute,
+.cm-def,
+.cm-header,
+.cm-hr,
+.cm-property,
+.cm-string-2,
+.identifier {
+    color: #00cfff;
+}
+
+.cm-meta,
+.number {
+    color: #0073ff;
+}
+
+.cm-builtin,
+.punctuation,
+.cm-tag,
+.cm-qualifier {
+    color: #6fdf00;
+}
+
+.macro,
+.cm-variable-3,
+.cm-error,
+.cm-minus,
+.cm-plus,
+.cm-quote {
+    color: #ff3063;
+}
+
+/*.cm-link,
+.cm-rangeinfo {
+    text-decoration: none;
+    color: #6fdf00;
+}
+
+.CodeMirror-foldgutter {
+    width: 2em;
+}
+
+.CodeMirror-foldgutter-open,
+.CodeMirror-foldgutter-folded,
+.CodeMirror-foldgutter-blank {
+    width: 100%;
+    text-align: center;
+}
+
+.CodeMirror-foldgutter-open::after,
+.CodeMirror-foldgutter-folded::after,
+.CodeMirror-foldgutter-blank::after {
+    line-height: 0;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.333333);
+}
+
+.CodeMirror-foldmarker {
+    display: inline-block;
+    margin: 0 0.125em;
+    border-radius: 0.75em;
+    border: 0;
+    color: rgba(255, 255, 255, 0.666667);
+    background-color: rgba(255, 255, 255, 0.166667);
+}
+
+.CodeMirror-foldmarker::after {
+    display: block;
+    content: '\2022\2022\2022';
+    width: 2em;
+    text-align: center;
+    line-height: 1.25em;
+    position: relative;
+    top: -0.0625em;
+}
+
+.ico-cssColorPreview {
+    display: block;
+    width: 0.5em;
+    height: 1.25em;
+    margin: 0;
+    border: 0;
+}
+*/
