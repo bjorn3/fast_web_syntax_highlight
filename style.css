@@ -16,6 +16,9 @@ h2 + pre{
 
 #output{
     color: deepskyblue;
+    height: 200px;
+    width: calc(100vw - 30px);
+    overflow: scroll;
 }
 
 #highlighted{
@@ -130,56 +133,3 @@ h2 + pre{
 .cm-quote {
     background-color: #ff3063;
 }
-
-/*.cm-link,
-.cm-rangeinfo {
-    text-decoration: none;
-    color: #6fdf00;
-}
-
-.CodeMirror-foldgutter {
-    width: 2em;
-}
-
-.CodeMirror-foldgutter-open,
-.CodeMirror-foldgutter-folded,
-.CodeMirror-foldgutter-blank {
-    width: 100%;
-    text-align: center;
-}
-
-.CodeMirror-foldgutter-open::after,
-.CodeMirror-foldgutter-folded::after,
-.CodeMirror-foldgutter-blank::after {
-    line-height: 0;
-    font-size: 1em;
-    color: rgba(255, 255, 255, 0.333333);
-}
-
-.CodeMirror-foldmarker {
-    display: inline-block;
-    margin: 0 0.125em;
-    border-radius: 0.75em;
-    border: 0;
-    color: rgba(255, 255, 255, 0.666667);
-    background-color: rgba(255, 255, 255, 0.166667);
-}
-
-.CodeMirror-foldmarker::after {
-    display: block;
-    content: '\2022\2022\2022';
-    width: 2em;
-    text-align: center;
-    line-height: 1.25em;
-    position: relative;
-    top: -0.0625em;
-}
-
-.ico-cssColorPreview {
-    display: block;
-    width: 0.5em;
-    height: 1.25em;
-    margin: 0;
-    border: 0;
-}
-*/

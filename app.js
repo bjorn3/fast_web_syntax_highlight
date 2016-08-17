@@ -86,11 +86,12 @@ class Token{
             return;
         }
         let type = this.type;
-        while(type.length < 15){
+        type = type.replace("punctuation", "punct").replace("identifier", "ident");
+        while(type.length < 10){
             type += " ";
         }
         if(this.chars != " " && this.chars != "\n"){
-           output.textContent += type + this.chars + "\n";
+           output.textContent += type + JSON.stringify(this.chars).replace(/\\"/g, "\"").replace(/\"/g, "") + "\n";
         }
     }
 
