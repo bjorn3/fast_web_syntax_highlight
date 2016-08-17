@@ -8,6 +8,7 @@ body{
 h2{
     margin-bottom: 4px;
 }
+
 h2 + pre{
     margin-top: 0px;
     margin-bottom: 0px;
@@ -18,7 +19,7 @@ h2 + pre{
 }
 
 #highlighted{
-    filter: brightness(120%) contrast(2000%);
+    /*filter: brightness(120%) contrast(2000%);*/
 }
 
 #wrapper{
@@ -26,20 +27,29 @@ h2 + pre{
 }
 
 #editor {
-    mix-blend-mode: difference;
+    min-width: calc(100vw - 10px);
+    mix-blend-mode: multiply;
     position: absolute;
     top: 0px;
-    color: rgba(255, 255, 255, 0.3);
-    opacity: 1;
+    color: white;
+    background: black;
     z-index: 1000;
 }
 
 #wrapper {
-    font-size: 30px;
+    font-size: 20px;
     position: absolute;
 }
 
 /*Brackets Neon*/
+
+#highlighted{
+    color: transparent;
+}
+
+.whitespace{
+    background: white;
+}
 
 .CodeMirror-linenumber {
     padding: 0 1.5em 0 0.5em;
@@ -76,17 +86,18 @@ h2 + pre{
 }
 
 .cm-operator {
-    color: rgba(255, 255, 255, 0.666667);
+    background-color: rgba(255, 255, 255, 0.666667);
 }
 
 .comment {
-    color: rgba(255, 255, 255, 0.333333);
+    background-color: rgba(255, 255, 255, 0.333333);
+    color: transparent;
 }
 
 .cm-atom,
 .keyword,
 .string {
-    color: #ff50a7;
+    background-color: #ff50a7;
 }
 
 .cm-attribute,
@@ -96,19 +107,19 @@ h2 + pre{
 .cm-property,
 .cm-string-2,
 .identifier {
-    color: #00cfff;
+    background-color: #00cfff;
 }
 
 .cm-meta,
 .number {
-    color: #0073ff;
+    background-color: #0073ff;
 }
 
 .cm-builtin,
 .punctuation,
 .cm-tag,
 .cm-qualifier {
-    color: #6fdf00;
+    background-color: #6fdf00;
 }
 
 .macro,
@@ -117,7 +128,7 @@ h2 + pre{
 .cm-minus,
 .cm-plus,
 .cm-quote {
-    color: #ff3063;
+    background-color: #ff3063;
 }
 
 /*.cm-link,

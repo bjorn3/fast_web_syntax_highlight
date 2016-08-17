@@ -1,0 +1,7 @@
+keyword: #B24DB2
+ident: #4DB2B2
+punct: #ABB24D
+comment: #6E6E6E
+string: #B24DB2
+number: #4DB2B2
+macro: #B24D4D

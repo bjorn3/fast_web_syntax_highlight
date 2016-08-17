@@ -50,7 +50,5 @@ window.punctuations = [
     "]",
     ")",
 
-    " ",
-    "\n",
     "#!"
 ];

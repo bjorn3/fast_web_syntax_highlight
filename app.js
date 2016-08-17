@@ -1,19 +1,72 @@
 //jshint esnext:true
 //jshint browser:true
 
-let source = `
-fn main(){
-    println//bar
-!("Hello world"); //hello
-    let i = 012345678910111213141516171819202122232425262728293031323334353637383940;/*a
-                b*/
-    while//world
-        i != 10{
-            i += 1;
+let source = `#!/fnusr/bin/rustc
+extern crate rustc_serialize;
+extern crate byte_stream_splitter;
+#[macro_use]
+extern crate lazy_static;
+
+use data::DATAMGR;
+
+pub use rustc_serialize::json::as_json;
+use rustc_serialize::json::Json;
+
+///Error
+pub mod error;
+///Packet
+pub mod packet;
+///Data
+pub mod data;
+///Data reader
+pub mod gbd;
+///Goodgame empire connection
+pub mod connection;
+
+///Read castles
+pub fn read_castles(data: gbd::Gbd){
+    for ain in data.ain{
+        for castle in ain.ap{
+            DATAMGR.lock().unwrap().add_castle(castle);
+        }
+        for castle in ain.vp{
+            DATAMGR.lock().unwrap().add_castle(castle);
+        }
     }
-    println!("{}\"", i);
 }
-`;
+
+pub fn read_names(data: String){
+    let data = data.trim_right_matches('%');
+    let data = Json::from_str(data).unwrap();
+    let data = data.as_object().unwrap();
+    let gcl = data.get("gcl").unwrap().as_object().unwrap(); // gcl
+    println!("gcl: {:?}\n", gcl);
+    let c = gcl.get("C").unwrap().as_array().unwrap(); // gcl C
+    println!("C: {:?}", c);
+    for world in c.iter(){
+        let world = world.as_object().unwrap();
+        let world_name = world.get("KID").unwrap().as_u64().unwrap(); // gcl C [] KID
+        let world_name = data::World::from_int(world_name);
+        println!("world: {:?}", world_name);
+        let world = world.get("AI").unwrap().as_array().unwrap(); // gcl C [] AI
+        for castle in world{
+            let castle = castle.as_object().unwrap().get("AI").unwrap().as_array().unwrap(); // gcl C [] AI [] AI (castle)
+            println!("castle: {:?}", castle);
+            let castle_id = castle[3].as_u64().unwrap(); // gcl C [] AI [] AI [3] (id)
+            let castle_name = castle[10].as_string().unwrap(); // gcl C [] AI [] AI [10] (name)
+            let castle = data::Castle{
+                id: castle_id,
+                owner_id: None,
+                name: Some(castle_name.to_string()),
+                x: None,
+                y: None,
+                world: None
+            };
+            println!("castle: {:?}\n", castle);
+            DATAMGR.lock().unwrap().add_castle(castle);
+        }
+    }
+}`;
 
 let output = document.querySelector("#output");
 let highlighted = document.querySelector("#highlighted");
@@ -41,13 +94,13 @@ class Token{
         }
     }
 
-    to_text(){
+    to_html(){
         if(this.type == "space" && this.chars == "\n"){
             return "<br>";
         }else if(this.type == "comment" && this.chars.startsWith("//")){
-            return "<span class='" + this.type +"' spellcheck='true'>" + this.chars + "</span>";
+            return "<span class='" + this.type +"' spellcheck='true'>" + this.chars.replace(/\n/g, " <br>") + "</span>";
         }else{
-            return "<span class='" + this.type +"'>" + this.chars + "</span>";
+            return "<span class='" + this.type +"'>" + this.chars.replace(/\n/g, " <br>") + "</span>";
         }
     }
 }
@@ -69,6 +122,8 @@ class Tokenizer{
         let token;
         if(this.source[0] === undefined){
             return Token.done();
+        }else if(token = this.match_whitespace()){
+            return token;
         }else if(token = this.match_string()){
             return token;
         }else if(token = this.match_comment()){
@@ -83,11 +138,25 @@ class Tokenizer{
                 return token;
         }else{
             let chars = [];
-            while(!this.is_punctuation() && !this.is_comment() && this.source.length !== 0){
+            while(!this.is_punctuation() && !this.is_comment() && !this.is_whitespace(this.source[0]) && this.source.length !== 0){
                 chars.push(this.source[0]);
                 this.skip(1);
             }
             return new Token("identifier", chars.join(""));
+        }
+    }
+
+    is_whitespace(char){
+        return char == " " || char == "\n";
+    }
+
+    match_whitespace(){
+        if(this.source[0] == " "){
+            this.skip(1);
+            return new Token("whitespace", " ");
+        }else if(this.source[0] == "\n"){
+            this.skip(1);
+            return new Token("whitespace", "\n");
         }
     }
 
@@ -172,7 +241,7 @@ class Tokenizer{
     }
 
     match_punctuation(){
-        for(let punctuation of window.punctuations){
+        for(let punctuation of window.punctuations.sort( (a,b)=>a.length < b.length ) ){
             if(this.source.startsWith(punctuation)){
                 this.skip(punctuation.length);
                 return new Token("punctuation", punctuation);
@@ -193,7 +262,7 @@ class Tokenizer{
 
     match_keyword(){
         for(let keyword of window.keywords){
-            if(this.source.startsWith(keyword)){
+            if(this.source.startsWith(keyword) && this.is_whitespace(this.source[keyword.length]) ){
                 this.skip(keyword.length);
                 return new Token("keyword", keyword);
             }
@@ -223,7 +292,7 @@ function highlight(){
 
 editor.onpaste = editor.onkeypress = function(evt){
     setTimeout(function(){
-        source = editor.textContent;
+        source = editor.innerHTML.replace(/<br>/g, "\n");
 
         if(evt.keyCode >= 37 && evt.keyCode <= 40 || evt.ctrlKey || evt.altKey || evt.metaKey){
             return;
@@ -252,7 +321,11 @@ function tokenize(source){
 function tokens2html(tokens){
     return tokens
         .map((token) => {
-            return token.to_text();
+            return token.to_html();
         })
         .join("");
+}
+
+function reprint(){
+    editor.textContent = tokenize(editor.innerHTML.replace(/<br>/g, "\n")).map((token) => token.chars ).join("");
 }
