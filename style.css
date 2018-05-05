@@ -21,10 +21,6 @@ h2 + pre{
     overflow: scroll;
 }
 
-#highlighted{
-    /*filter: brightness(120%) contrast(2000%);*/
-}
-
 #wrapper{
     -moz-osx-font-smoothing: grayscale;
 }
